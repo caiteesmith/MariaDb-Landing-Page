@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.0 Transitional//EN" "https://www.w3.org/TR/REC-html40/loose.dtd">
+<html>
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width; initial-scale=1.0; maximum-scale=1.0;">
+<link rel="shortcut icon" type="image/x-icon" href="https://tlm-technology-2.com/mariadb/8515/1/images/favicon.png"/>
+<link href="https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800" rel="stylesheet" type="text/css">
+<link rel="stylesheet" type="text/css" href="fonts.googleapis.com/css?family=Raleway" />
+<link href="https://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css">
+
+<title>MariaDB | Cloud Architecture Checklist</title>
+
+<style type="text/css">
+
+[style*="Gordita"] {font-family: "Gordita", Helvetica, sans-serif !important;!important}
+
+div, p, a, li, td { -webkit-text-size-adjust:none; }
+
+a {
+color: #fff;
+}
+
+@font-face {
+font-family: "Gordita";
+src: url('https://resources.asana.com/rs/784-XZD-582/https://tlm-business-2.com/asana/8441/1/https://tlm-technology-2.com/mariadb/8515/1/images/hinted-Gordita-Regular.woff')
+format('woff');
+}
+
+*{-webkit-font-smoothing: antialiased; -moz-osx-font-smoothing: grayscale;}
+
+.ReadMsgBody
+{width: 100%; background-color: #003545;}
+.ExternalClass
+{width: 100%; background-color: #003545;}
+body{width: 100%; height: 100%; background-color: #003545; margin:0; padding:0; -webkit-font-smoothing: antialiased;}
+html{width: 100%; background-color: #003545;}
+
+div.titleHeader_2 {display: none;}
+.td150 {height: 150px;}
+.logo {margin-left: 100px;}
+
+p {padding: 0!important; margin-top: 0!important; margin-right: 0!important; margin-bottom: 0!important; margin-left: 0!important; }
+
+.hover:hover {opacity:0.85;filter:alpha(opacity=85);}
+.underline:hover {text-decoration: underline!important;}
+
+.jump:hover {opacity:0.75;filter:alpha(opacity=75);padding-top: 10px!important;}
+
+a.rotator img {-webkit-transition: all 1s ease-in-out; -moz-transition: all 1s ease-in-out; -o-transition: all 1s ease-in-out; -ms-transition: all 1s ease-in-out; }
+
+a.rotator img:hover {-webkit-transform: rotate(360deg); -moz-transform: rotate(360deg); -o-transform: rotate(360deg); -ms-transform: rotate(360deg); }
+
+@-webkit-keyframes bounceIn { 0% {opacity: 0;-webkit-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}}
+
+@keyframes bounceIn {0% {opacity: 0;-webkit-transform: scale(.3);-ms-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);-ms-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);-ms-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);-ms-transform: scale(1);transform: scale(1);}}
+
+#box {-webkit-animation: bounceIn 2s; -moz-animation: bounceIn 2s; -o-animation: bounceIn 2s; animation: bounceIn 2s; }
+
+@-webkit-keyframes bounceIn {0% {opacity: 0;-webkit-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}}
+
+@keyframes bounceIn {0% {opacity: 0;-webkit-transform: scale(.3);-ms-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);-ms-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);-ms-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);-ms-transform: scale(1);transform: scale(1);}}
+
+#box2 { -webkit-animation: bounceIn 1.5s; -moz-animation: bounceIn 1.5s; -o-animation: bounceIn 1.5s; animation: bounceIn 1.5s; }
+
+@-webkit-keyframes bounceIn { 0% {opacity: 0;-webkit-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}}
+
+@keyframes bounceIn {0% {opacity: 0;-webkit-transform: scale(.3);-ms-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);-ms-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);-ms-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);-ms-transform: scale(1);transform: scale(1);}}
+
+#box3 {-webkit-animation: bounceIn 2s; -moz-animation: bounceIn 2s; -o-animation: bounceIn 2s; animation: bounceIn 2s; }
+
+@-webkit-keyframes bounceIn {0% {opacity: 0;-webkit-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);transform: scale(1);}}
+
+@keyframes bounceIn {0% {opacity: 0;-webkit-transform: scale(.3);-ms-transform: scale(.3);transform: scale(.3);}50% {opacity: 1;-webkit-transform: scale(1.05);-ms-transform: scale(1.05);transform: scale(1.05);}70% {-webkit-transform: scale(.9);-ms-transform: scale(.9);transform: scale(.9);}100% {opacity: 1;-webkit-transform: scale(1);-ms-transform: scale(1);transform: scale(1);}}
+
+#box4 { -webkit-animation: bounceIn 1.5s; -moz-animation: bounceIn 1.5s; -o-animation: bounceIn 1.5s; animation: bounceIn 1.5s; }
+
+#logo img {width: 125px; height: auto;}
+#logo_footer img {width: 100px; height: auto;}
+.image175 img {width: 175px; height: auto;}
+.icon34 img {width: 34px; height: auto;}
+#icon13 img {width: 13px; height: auto;}
+.icon30 img {width: 30px; height: auto;}
+.image191 img {width: 191px; height: auto; border-radius: 4px;}
+.avatar83 img {width: 83px; height: auto;}
+.image194 img {width: 194px; height: auto; border-radius: 4px;}
+.icon37 img {width: 37px; height: auto;}
+.image400 img {width: 400px; height: auto;}
+.image600 img {width: 600px; height: auto; border-radius: 4px;}
+.image185 img {width: 185px; height: auto; border-radius: 4px;}
+.image352 img {width: 352px; height: auto;}
+.icons17 img {width: 17px; height: auto;}
+
+@media only screen and (max-width: 905px){
+body{width:auto!important;
+}
+table[class=full] {width: 100%!important; clear: both; }
+table[class=mobile] {width: 100%!important;  clear: both; }
+
+table[class=titleHeader] {width: 50%!important; float: right; clear: both; }
+.logo {margin-left: 25px;}
+
+table[class=fullCenter] {width: 100%!important; text-align: center!important; clear: both; }
+td[class=fullCenter] {width: 100%!important; text-align: center!important; clear: both; }
+*[class=erase] {display: none;}
+*[class=buttonScale] {float: none!important; text-align: center!important; display: inline-block!important; clear: both;}
+.[class=textLeft] {text-align: left!important; float: left!important;}
+.h10 {height: 10px!important;}
+table[class=scale33] {width: 30%!important;}
+table[class=scale33Right] {width: 30%!important;}
+table[class=scale33_2] {width: 32%!important;}
+table[class=scale33Right_2] {width: 32%!important;}
+table[class=scale50] {width: 46%!important;}
+table[class=scale50Right] {width: 46%!important;}
+.image185 img {width: 100%!important; height: auto;}
+.image194 img {width: 100%!important; height: auto;}
+.pad {width: 100%!important; padding-left: 15px!important; padding-right: 15px!important;}
+table[class=w10] {width: 5%!important; }
+table[class=w5] {width: 2%!important; }
+.image600 img {width: 100%!important; height: auto!important; border-radius: 4px;}
+.image400 img {width: 100%!important; height: auto;}
+.image352 img {width: 100%!important; height: auto;}
+.image300 img {width: 40%!important; display: none;}
+.h40 {height: 40px!important;}
+.h30 {height: 30px!important;}
+td[class=pad20] {width: 100%!important; padding-left: 20px!important; padding-right: 20px!important; clear: both; }
+} 
+
+@media only screen and (max-width: 685px){
+table[class=titleHeader] {width: 40%!important; top: 400px; clear: both; }
+.pdfImage {width: 300px; max-width: 100%;}
+.logo {margin-left: 25px;}
+}
+
+@media only screen and (max-width: 640px){
+body{width:auto!important;}
+table[class=full] {width: 100%!important; clear: both; }
+table[class=mobile] {width: 100%!important;  clear: both; }
+table[class=fullCenter] {width: 100%!important; text-align: center!important; clear: both; }
+td[class=fullCenter] {width: 100%!important; text-align: center!important; clear: both; }
+*[class=erase] {display: none;}
+*[class=buttonScale] {float: none!important; text-align: center!important; display: inline-block!important; clear: both;}
+.[class=textLeft] {text-align: left!important; float: left!important;}
+.h10 {height: 10px!important;}
+table[class=scale33] {width: 30%!important;}
+table[class=scale33Right] {width: 30%!important;}
+table[class=scale33_2] {width: 32%!important;}
+table[class=scale33Right_2] {width: 32%!important;}
+table[class=scale50] {width: 46%!important;}
+table[class=scale50Right] {width: 46%!important;}
+.image185 img {width: 100%!important; height: auto;}
+.image194 img {width: 100%!important; height: auto;}
+.pad {width: 100%!important; padding-left: 15px!important; padding-right: 15px!important;}
+table[class=w10] {width: 5%!important; }
+table[class=w5] {width: 2%!important; }
+.image600 img {width: 100%!important; height: auto!important; border-radius: 4px;}
+.image400 img {width: 100%!important; height: auto;}
+.image352 img {width: 100%!important; height: auto;}
+.h40 {height: 40px!important;}
+.h30 {height: 30px!important;}
+td[class=pad20] {width: 100%!important; padding-left: 20px!important; padding-right: 20px!important; clear: both; }
+} 
+
+@media only screen and (max-width: 585px){
+table[class=titleHeader] {width: 40%!important; clear: both; }
+.pdfImage {width: 250px; max-width: 100%; }
+.td150 {height: 50px;}
+.logo {margin-left: 25px;}
+}
+
+@media only screen and (max-width: 479px){
+body{width:auto!important;}
+table[class=full] {width: 100%!important; clear: both; }
+table[class=mobile] {width: 100%!important; height: 100%!important; padding-bottom: 20px; clear: both; }
+table[class=fullCenter] {width: 100%!important; text-align: center!important; clear: both; }
+td[class=fullCenter] {width: 100%!important; text-align: center!important; clear: both; }
+*[class=erase] {display: none;}
+*[class=buttonScale] {float: none!important; text-align: center!important; display: inline-block!important; clear: both;}
+.h10 {height: 10px!important;}
+table[class=scale33] {width: 100%!important;}
+table[class=scale33Right] {width: 100%!important;}
+table[class=scale33_2] {width: 100%!important;}
+table[class=scale33Right_2] {width: 100%!important;}
+table[class=scale50] {width: 100%!important;}
+table[class=scale50Right] {width: 100%!important;}
+.image185 img {width: 100%!important; height: auto;}
+.image194 img {width: 100%!important; height: auto;}
+.pad {width: 100%!important; padding-left: 15px!important; padding-right: 15px!important;}
+table[class=w10] {width: 100%;}
+.image600 img {width: 100%!important; height: auto!important; border-radius: 4px;}
+.image400 img {width: 100%!important; height: auto;}
+.image352 img {width: 100%!important; height: auto;}
+.h40 {height: 40px!important;}
+.h30 {height: 30px!important;}
+td[class=pad20] {width: 100%!important; padding-left: 20px!important; padding-right: 20px!important; clear: both; }
+table[class=titleHeader] {width: 100%!important; clear: both; }
+.pdfImage {display: ; }
+.td150 {height: 20px;}
+.logo {margin-left: 20px;}
+}
+</style> 
+
+</head>
+<body background="https://tlm-technology-2.com/mariadb/8515/1/images/banner1.jpg" style="background-repeat: no-repeat; background-size: cover; background-position: bottom center; background-attachment: fixed; background-color: #003545;">
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="center" class="full" >
+<tr>
+<td width="100%" valign="top" align="center" >
+
+
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" class="full" id="copy_body" style="position: relative;" >
+<tr>
+<td width="100%" valign="top" align="left" >
+
+<!-- Space -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" class="full">
+<tr>
+<td width="100%" height="35"></td>
+
+</tr>
+</table><!-- End Space -->
+
+<!-- Wrapper -->
+<table width="100%" border="0" cellpadding="0" cellspacing="0" align="left" class="mobile">
+<tr>
+<td align="left">
+<img src="https://tlm-technology-2.com/mariadb/8515/1/images/logo-wt.png" alt="MariaDB" class="logo" style="max-width: 125px; margin: 0 25px 25px 25px; text-align: left; font-family: Gordita, Helvetica, sans-serif !important;!important; font-size: 26px; color: #fff;">
+<hr>
+
+
+<!-- Wrapper -->
+<table width="100%" border="0" cellpadding="25" cellspacing="0" align="center" class="full">
+<tr>
+<td width="100%" align="center">
+
+<h1 style="font-size: 1.8em; line-height: 40px; color: #fff; font-family: 'Gordita', Helvetica, sans-serif !important;!important; margin: 0 10px 0 0; padding-bottom: 25px; width: 100%; text-align: center; text-transform: uppercase;">Cloud Architecture Checklist</h1>
+
+<!-- COPY -->
+
+
+<table width="600" border="0" cellpadding="0" cellspacing="0" align="center" class="full">
+<tr>
+<td width="100%" align="center">
+
+<tr>
+<td valign="middle" width="100%" style="text-align: left; font-family: Gordita, Helvetica, sans-serif !important;!important; font-size: 14px; color: #fff; line-height: 22px; font-weight: 400;">
+
+<center>
+<a href="https://tlm-technology-2.com/mariadb/8515/1/index.html">
+<img src="https://tlm-technology-2.com/mariadb/8515/1/images/pdf.png" alt="MariaDB | Cloud Architecture Checklist" class="pdfImage" border="0" width="250" height="auto" style="margin: 0 0 35px 0; font-family: Gordita, Helvetica, sans-serif !important;!important; font-size: 26px; color: #fff; box-shadow: 5px 5px 10px #003545; -moz-box-shadow: 5px 5px 10px #003545; -webkit-box-shadow: 5px 5px 10px #003545; max-width: 100%;"></a><br>
+</center>
+
+<p>Cloud computing has substantially advanced the state of the art in technology. In many ways, it has simplified software architecture and practices, however, it has also complicated them. Successful cloud architectures must take into account resilience to faults, resilience to attack, scalability and maintainability. There are key practices that make those objectives possible.
+<br><br>
+This checklist looks at possible cloud architecture issues and can serve as a guide to selecting the right infrastructure, software and data architecture to ensure success. A system checklist is also included to guarantee that your cloud architecture leverages best practices.
+</p>
+
+</td>
+</tr>
+<tr>
+<td width="100%" height="30"></td>
+</tr>
+
+<!-- Button Left -->
+<tr>
+<td width="auto" align="center">
+
+<table border="0" cellpadding="0" cellspacing="0" align="center">
+<tr>
+<td width="auto" align="left" height="37" bgcolor="#fff" style="border-top-left-radius: 25px; border-top-right-radius: 25px; border-bottom-right-radius: 25px; border-bottom-left-radius: 25px; padding-left: 50px; padding-right: 50px; font-weight: bold; font-family: Gordita, Helvetica, sans-serif !important;!important; color: #003545; font-weight: 600;">
+<a href="https://tlm-technology-2.com/mariadb/8515/1/index.html" style="color: #003545; font-size: 14px; text-decoration: none; line-height: 34px; width: 100%;">Download Now</a>
+</td>
+</tr>
+</table>
+
+</td>
+</tr>
+<!-- Button Left -->
+<tr>
+<td width="100%" height="70" style="text-align: center; font-family: Gordita, Helvetica, sans-serif !important;!important; font-size: 9px; color: #fff; line-height: 21px; vertical-align: middle;  font-weight: 400; padding-bottom: 10px;">Having trouble viewing this email? <a href="https://tlm-technology-2.com/mariadb/8515/1/index.html">View this email in your browser</a></td>
+</tr>
+</td>
+</tr>
+</table>
+</td>
+</tr>
+</table><!-- End Wrapper 2 -->
+
+</td>
+</tr>
+</table><!-- End Wrapper -->
+
+</td>
+</tr>
+</table>
+
+
+	</td>
+	</tr>
+	</table>
+</body>
+</html>
